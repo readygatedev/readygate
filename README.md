@@ -16,15 +16,27 @@ Most AI ticket writers fill the gaps with plausible guesses. ReadyGate has **gat
 
 Or in two steps: `/plugin marketplace add readygatedev/readygate`, then `/plugin install readygate@readygate`.
 
-## Three commands
+## Commands
+
+**You have a codebase:**
 
 | Command | What it does | Writes |
 |---|---|---|
 | `/pm-init` | Scans your workspace (repos, stack, glossary, decisions, ticket folders), asks only what it can't detect, sets everything up | `pm.config.yaml`, `pm/TERMINOLOGY.md` (drafted from your code), `pm/DECISIONS.md`, `pm/tickets/` |
-| `/pm-discover <idea>` | A fit check that opens with one of four verdicts (**Fits / Fits, with changes / Doesn't fit as described / Blocked**), or a plain-language "how does this work today?" | Nothing, except lasting blockers in `DECISIONS.md` |
+| `/pm-discover <idea>` | A fit check that opens with a verdict (**Already exists / Fits / Fits, with changes / Doesn't fit as described / Blocked**), or a plain-language "how does this work today?" | Nothing, except lasting blockers in `DECISIONS.md` |
 | `/pm-ticket <feature>` | Gap analysis, one round of product questions, then tickets, only after you say "generate" | `pm/tickets/<feature>/<feature>-<n>.md` |
 
 Your product repo is **read-only** the whole time: no commits, no branches, no edits.
+
+**You're starting from an idea (no code yet):**
+
+| Command | What it does | Writes |
+|---|---|---|
+| `/pm-new <your idea>` | Listens, asks only about what's missing (users, non-goals, success metric, constraints), confirms a summary, never invents the product | `pm/BRIEF.md`, terminology, decisions, a greenfield `pm.config.yaml` |
+| `/pm-backlog` | Splits the MVP into epics and small user-facing features in build order, each `ready` or blocked by a named open question. Re-run when the brief changes | `pm/BACKLOG.md` (after you approve) |
+| `/pm-discover`, `/pm-ticket` | Same gates, grounded in the brief instead of code. Verdicts: **In MVP scope / Fits, after MVP / Already planned / Conflicts with the brief / Needs a decision first**. Technical unknowns become "Question for the tech lead" | Tickets, and the backlog line is marked `ticketed` |
+
+When code exists, run `/pm-init` and the project switches to code mode. The brief, backlog and decisions stay.
 
 ## The gates, from real runs
 

@@ -2,7 +2,7 @@
 name: pm-ticket
 argument-hint: <feature idea or feature slug>
 allowed-tools: Read, Grep, Glob, Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/context.sh:*)
-description: Use when the PM explicitly asks for tickets ("write this up", "generate the tickets", "make a ticket for…"). Grounds the feature in the product codebase, finds gaps, asks one batch of questions, waits for an explicit go, then writes developer- and QA-ready tickets. Not for "does this fit?" questions; those are discovery (no tickets).
+description: Use when the PM explicitly asks for tickets ("write this up", "generate the tickets", "make a ticket for…"). Grounds the feature in the product codebase (or, for a new product with no code yet, in its brief and backlog), finds gaps, asks one batch of questions, waits for an explicit go, then writes developer- and QA-ready tickets. Not for "does this fit?" questions; those are discovery (no tickets).
 ---
 
 # Write tickets
@@ -27,6 +27,8 @@ Keys used (defaults if there's no config; then suggest `/pm-init` once):
 | `tickets.forbid`, `tickets.nfr_checklist` | as in [ticket-format.md](references/ticket-format.md) and [writing-rules.md](references/writing-rules.md) |
 | `ticket_changes.dir` | none (set by ReadyGate Pro's prototype loop) |
 | `gates.*` | all on |
+
+**Greenfield (`mode: greenfield` in the script output):** there's no code. Use [greenfield.md](../pm-discover/references/greenfield.md) for grounding and gap analysis in steps 1–3 and for Dev Notes, and accept a backlog number as the feature (`/pm-ticket 1.2`). A feature marked `idea (needs Qn)` in the backlog isn't ready: ask that question in step 4. Everything else in this skill applies unchanged.
 
 Read the terminology and decisions files if they exist. Use the terminology for every user-facing word. Treat recorded decisions as already answered.
 
@@ -81,5 +83,5 @@ In chat (not in the tickets): the files written, one line each; technical pointe
 Gaps and risks from step 2 must appear in the tickets even if they complicate the ask. Don't drop them to make a ticket look clean. An unresolved risk goes in as a business rule or acceptance criterion, never silently left out.
 
 ## Hard limits
-- The product repo is read-only: no commit, push, merge, rebase or branch; no installs; no edits to source files. The only writes allowed are ticket files under `tickets.dir` and entries in the decisions file.
+- The product repo is read-only: no commit, push, merge, rebase or branch; no installs; no edits to source files. The only writes allowed are ticket files under `tickets.dir`, entries in the decisions file, and (greenfield) the status and Tickets column of the feature's backlog line.
 - Every claim about existing code is backed by a file you read this session (see [analysis.md](../pm-discover/references/analysis.md)).

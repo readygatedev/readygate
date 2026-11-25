@@ -5,6 +5,7 @@
 # Anything project-specific belongs HERE, never in the plugin's skills.
 
 version: 1
+mode: code                              # code (ground in the product repo) | greenfield (no codebase yet: ground in the brief)
 
 # ─────────────────────────────────────────────────────────────
 # Project
@@ -15,9 +16,12 @@ project:
   language: en                          # language tickets are written in
   terminology_file: pm/TERMINOLOGY.md   # domain glossary: UI text must use these terms
   decisions_file: pm/DECISIONS.md       # known constraints & PM decisions (project memory)
+  brief_file: pm/BRIEF.md               # greenfield: problem, users, goals, non-goals, constraints
+  backlog_file: pm/BACKLOG.md           # greenfield: epics and features in build order (/pm-backlog)
 
 # ─────────────────────────────────────────────────────────────
 # Product repo: the real codebase. ReadyGate reads it; it never changes it.
+# Greenfield (no code yet): set `path: none`. Re-run /pm-init when code exists.
 # ─────────────────────────────────────────────────────────────
 repos:
   product:

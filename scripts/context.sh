@@ -32,7 +32,11 @@ PY
   branch="$(get repos.product.default_branch)"
   tickets="$(abs "$(get tickets.dir)")"; [ -z "$tickets" ] && tickets="$root/pm/tickets"
   term="$(abs "$(get project.terminology_file)")"; dec="$(abs "$(get project.decisions_file)")"
+  pmode="$(get mode)"; brief="$(abs "$(get project.brief_file)")"; backlog="$(abs "$(get project.backlog_file)")"
+  [ "$(get repos.product.path)" = "none" ] && { pmode=greenfield; product=""; }
 fi
+pmode="${pmode:-code}"; [ -z "${brief:-}" ] && brief="$root/pm/BRIEF.md"; [ -z "${backlog:-}" ] && backlog="$root/pm/BACKLOG.md"
+if [ "$mode" = history ] && [ -z "$product" ]; then echo "history: no product repo (greenfield)"; exit 0; fi
 if [ "$mode" = history ]; then
   case "$n" in ''|*[!0-9]*) n=10;; esac
   rel="${target#$product/}"
@@ -42,9 +46,12 @@ if [ "$mode" = history ]; then
   exit 0
 fi
 echo "workspace_root: $root"
-echo "product_repo: $product"
+echo "mode: $pmode"
+echo "product_repo: ${product:-none (greenfield: ground in the brief)}"
 
-if git -C "$product" rev-parse --git-dir >/dev/null 2>&1; then
+if [ "$pmode" = greenfield ]; then
+  echo "git: skipped (no product repo yet)"
+elif git -C "$product" rev-parse --git-dir >/dev/null 2>&1; then
   remote_ok=yes; git -C "$product" fetch --quiet origin 2>/dev/null || remote_ok=no
   [ -z "$branch" ] && branch="$(git -C "$product" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##')"
   echo "git: checked_out=$(git -C "$product" branch --show-current) default_branch=${branch:-unknown} fetch=$([ $remote_ok = yes ] && echo ok || echo 'FAILED (remote comparison unavailable)')"
@@ -62,7 +69,9 @@ else
   echo "git: $product is not a git repo"
 fi
 
-for pair in "terminology_file:$term" "decisions_file:$dec"; do
+pairs=("terminology_file:$term" "decisions_file:$dec")
+[ "$pmode" = greenfield ] && pairs+=("brief_file:$brief" "backlog_file:$backlog")
+for pair in "${pairs[@]}"; do
   k="${pair%%:*}"; f="${pair#*:}"
   if [ -z "$f" ]; then echo "$k: not set"; elif [ -f "$f" ]; then echo "$k: $f ($(wc -l <"$f") lines)"; else echo "$k: $f (MISSING)"; fi
 done

@@ -12,7 +12,7 @@
       "name": "readygate",
       "source": "./",
       "description": "Gated PM workflow: grounded fit checks and developer- and QA-ready tickets that never guess a product decision.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "productivity"
     }
   ]

@@ -2,7 +2,7 @@
 name: pm-discover
 argument-hint: <feature idea or question>
 allowed-tools: Read, Grep, Glob, Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/context.sh:*)
-description: Use when the PM asks whether a feature fits, what would block it, what it would take, or how something works today ("does X fit?", "what would stop us doing Y?", "how does Z work now?"). Read-only answer grounded in the product codebase, with a direct verdict. No questions round, no tickets. If the PM asks for tickets, use pm-ticket instead.
+description: Use when the PM asks whether a feature fits, what would block it, what it would take, or how something works today ("does X fit?", "what would stop us doing Y?", "how does Z work now?"). Read-only answer grounded in the product codebase (or, for a new product with no code yet, in its brief), with a direct verdict. No questions round, no tickets. If the PM asks for tickets, use pm-ticket instead.
 ---
 
 # Discover
@@ -20,6 +20,8 @@ Run `bash ${CLAUDE_PLUGIN_ROOT}/scripts/context.sh` once, first. It finds and pr
 | `repos.product.dev_links` | none |
 | `project.terminology_file` | none |
 | `project.decisions_file` | none |
+
+**Greenfield (`mode: greenfield` in the script output):** there's no code. Follow [greenfield.md](references/greenfield.md) instead of the code parts below: its sources, grounding rule, gap analysis and verdicts. The answer structure below stays the same, with "Not covered by the brief" in place of "Not found in repo". "How does X work today?" becomes "What have we decided about X?", answered from the brief, decisions, backlog and tickets.
 
 Then read the terminology and decisions files (paths are in the script output) **in the same message as your first code searches**. A recorded decision can settle the answer on its own ("Finance owns the payout schedule"); cite it like code.
 

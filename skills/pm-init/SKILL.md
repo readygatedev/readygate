@@ -25,6 +25,10 @@ Run `bash ${CLAUDE_PLUGIN_ROOT}/skills/pm-init/scripts/detect.sh` from the worki
 - every git repo here or up to 2 levels down: remote, default branch, commits and authors, uncommitted files, stack, mock-data folders, routes file, hosting, existing CLAUDE.md, glossaries, decision records and ticket-like folders,
 - MCP servers and whether the GitHub CLI is logged in.
 
+**If no git repo is found** (and the PM didn't name one): there's no codebase to ground in. Say so, and offer the greenfield setup: follow `${CLAUDE_PLUGIN_ROOT}/skills/pm-new/SKILL.md` (the PM can also run `/pm-new` directly). Don't create a code-mode config pointing at nothing.
+
+**If the config has `mode: greenfield` and a repo now exists** → switch to code mode: set `mode: code`, fill `repos.product` from the scan, keep the brief, backlog, terminology, decisions and tickets as they are, and show the diff before saving. Tell the PM that from now on answers are grounded in the code, and that features already ticketed may be worth a `/pm-discover` check against what was actually built.
+
 **If a config already exists → update mode.** Read it, summarize the current setup in a short table, and ask what to change. Apply only those changes, keep comments, show the diff before saving. Then go to step 5.
 
 ## 2. Work out the defaults
