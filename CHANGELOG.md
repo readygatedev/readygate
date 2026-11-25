@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 (unreleased)
+## 0.2.0 (2026-11-25)
 
 - **Greenfield mode** for PMs with no codebase yet:
   - `/pm-new` interviews the PM and writes a product brief (problem, users, goals, non-goals, metrics, constraints, open questions), terminology, decisions and a greenfield config. It never invents the product: anything undecided goes under Open questions.
@@ -8,7 +8,7 @@
   - `/pm-discover` and `/pm-ticket` ground in the brief when there's no code, with greenfield verdicts, labeled general knowledge, and "Question for the tech lead" in Dev Notes.
   - `/pm-init` routes to greenfield setup when no repo is found, and switches a greenfield project to code mode once code exists.
 
-## 0.1.0 (unreleased)
+## 0.1.0 (2026-11-25)
 
 First public version: the free tier.
 
