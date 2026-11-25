@@ -1,0 +1,81 @@
+# pm.config.yaml — ReadyGate project config
+#
+# Lives at the root of your PM workspace (the folder that holds your repos, or the repo itself).
+# Every path is relative to this file. `/pm-init` writes a filled-in copy; edit freely after.
+# Anything project-specific belongs HERE, never in the plugin's skills.
+
+version: 1
+
+# ─────────────────────────────────────────────────────────────
+# Project
+# ─────────────────────────────────────────────────────────────
+project:
+  name: Acme Shop
+  one_liner: Marketplace where sellers list products and buyers order them.
+  language: en                          # language tickets are written in
+  terminology_file: pm/TERMINOLOGY.md   # domain glossary: UI text must use these terms
+  decisions_file: pm/DECISIONS.md       # known constraints & PM decisions (project memory)
+
+# ─────────────────────────────────────────────────────────────
+# Product repo: the real codebase. ReadyGate reads it; it never changes it.
+# ─────────────────────────────────────────────────────────────
+repos:
+  product:
+    path: ../acme-app
+    default_branch: main                # the branch developers merge into
+    remote: origin
+    access: read-only                   # keep read-only
+    dev_links:                          # optional: where to check built work by hand
+      - { name: Customer app, url: https://dev.acme.example }
+      - { name: Admin, url: https://admin.dev.acme.example }
+
+# ─────────────────────────────────────────────────────────────
+# Tickets
+# ─────────────────────────────────────────────────────────────
+tickets:
+  dir: pm/tickets
+  file_pattern: "{feature}/{feature}-{n}.md"   # one folder per feature, numbered per feature
+  format: markdown
+
+  limits:
+    business_rules: 8
+    acceptance_criteria: 8
+    min_acceptance_criteria: 3          # smaller tickets are merged into a related one (bugs excepted)
+    questions_per_round: 5
+
+  sections:                             # order in every ticket (see skills/pm-ticket/references/ticket-format.md)
+    - title                             # [Area] verb-first, scoped
+    - description                       # user story + short business context
+    - scope                             # in scope / out of scope
+    - business_rules                    # BR-01.. policy statements
+    - acceptance_criteria               # AC-01 (BR-02): Given/When/Then, testable from the UI
+    - happy_path                        # demo script; N/A when no user-facing flow
+    - dependencies                      # by title, never by ticket number
+    - dev_notes                         # plain-language pointers; no paths, fields or code
+
+  audience: [developers, non-technical QA]
+  forbid: [checkboxes, estimates, labels, code_in_body, open_product_questions]
+
+  nfr_checklist:                        # check every ticket; write a line only if it changes
+    - loading / empty / error states
+    - permissions and access control
+    - accessibility
+    - backward compatibility
+    - rollback or feature flag
+
+  type_prefixes:                        # title prefix → issue type when tickets are pushed to a tracker
+    "[Bug]": Bug
+    "[Task]": Task
+
+# ─────────────────────────────────────────────────────────────
+# Gates: change these only if you know why they're there
+# ─────────────────────────────────────────────────────────────
+gates:
+  grounding: true                       # every claim about code cites file:line read this session
+  generation_gate: true                 # tickets only after an explicit "generate"
+  product_decisions_answered: true      # never assume a product decision
+  anti_sycophancy: true                 # gaps/risks found must reach the ticket
+  product_repo_git_writes: false        # no commit/push/branch in the product repo
+
+# ReadyGate Pro adds: tracker push (Jira, Linear, GitHub Issues), the prototype and
+# screenshot loop, and grading of shipped work against tickets. Its settings go below.

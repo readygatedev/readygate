@@ -1,0 +1,19 @@
+{
+  "name": "readygate",
+  "owner": {
+    "name": "readygatedev",
+    "url": "https://github.com/readygatedev"
+  },
+  "metadata": {
+    "description": "ReadyGate: gated PM workflow for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "readygate",
+      "source": "./",
+      "description": "Gated PM workflow: grounded fit checks and developer- and QA-ready tickets that never guess a product decision.",
+      "version": "0.1.0",
+      "category": "productivity"
+    }
+  ]
+}

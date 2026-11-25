@@ -1,0 +1,10 @@
+{
+  "name": "readygate",
+  "version": "0.1.0",
+  "description": "Gated PM workflow for Claude Code: fit checks grounded in your code, and developer- and QA-ready tickets that never guess a product decision.",
+  "author": { "name": "readygatedev", "url": "https://github.com/readygatedev" },
+  "homepage": "https://github.com/readygatedev/readygate",
+  "repository": "https://github.com/readygatedev/readygate",
+  "license": "MIT",
+  "keywords": ["product-management", "pm", "tickets", "user-stories", "acceptance-criteria", "definition-of-ready", "jira", "prd"]
+}

@@ -1,0 +1,23 @@
+# Demo workspace for ReadyGate. Fictional company, fictional code.
+version: 1
+
+project:
+  name: Acme Shop
+  one_liner: Marketplace where independent sellers list products; Acme collects payment and pays sellers out weekly.
+  language: en
+  terminology_file: pm/TERMINOLOGY.md
+  decisions_file: pm/DECISIONS.md
+
+repos:
+  product:
+    path: acme-app
+    default_branch: main
+    remote: origin
+    access: read-only
+
+tickets:
+  dir: pm/tickets
+  file_pattern: "{feature}/{feature}-{n}.md"
+  limits: { business_rules: 8, acceptance_criteria: 8, questions_per_round: 5 }
+
+
