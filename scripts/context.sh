@@ -17,16 +17,9 @@ else
   root="$(dirname "$cfg")"
   if [ "$mode" = context ]; then
     echo "config: $cfg"; echo "----- pm.config.yaml (comments stripped) -----"
-    sed -e 's/[[:space:]]#.*$//' -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' "$cfg"; echo "-----"
+    sed -e 's/[[:space:]]\+#.*$//' -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' "$cfg"; echo "-----"
   fi
-  get () { python3 - "$cfg" "$1" <<'PY' 2>/dev/null
-import sys, yaml
-v = yaml.safe_load(open(sys.argv[1])) or {}
-for k in sys.argv[2].split('.'):
-    v = v.get(k) if isinstance(v, dict) else None
-print(v if v is not None else '')
-PY
-  }
+  get () { python3 "$(dirname "${BASH_SOURCE[0]}")/pmconfig.py" "$root" "$1" 2>/dev/null; }
   abs () { case "$1" in "") echo "";; /*) echo "$1";; *) echo "$root/$1";; esac; }
   product="$(abs "$(get repos.product.path)")"; [ -z "$product" ] && product="$root"
   branch="$(get repos.product.default_branch)"

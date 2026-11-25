@@ -1,7 +1,7 @@
 ---
 name: pm-new
 argument-hint: "[the product idea, in your own words]"
-allowed-tools: Read, Grep, Glob, Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/context.sh:*)
+allowed-tools: Read, Grep, Glob, Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pmconfig.py:*), Bash(bash ${CLAUDE_PLUGIN_ROOT}/scripts/context.sh:*)
 description: Use when the PM is starting a new product or a big new module and has no codebase yet ("I have an idea for…", "we're starting a new product", "help me set up a project from scratch"). Interviews the PM, then writes the product brief, terminology, decisions and a greenfield pm.config.yaml so the other ReadyGate commands work without code. Not for products that already have a repo; that's /pm-init.
 ---
 
@@ -50,7 +50,7 @@ If the PM's first message already covers every section and says to write it, ski
 4. `pm.config.yaml` from the template with `mode: greenfield`, `repos.product.path: none` (drop the branch, remote and dev links keys), `brief_file`, `backlog_file`, and the tickets folder `pm/tickets`. Keep the template's comments and gates.
 5. `pm/tickets/.gitkeep`.
 
-Validate the YAML (`python3 -c 'import yaml,sys; yaml.safe_load(open(sys.argv[1]))' pm.config.yaml`).
+Validate it: `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pmconfig.py --check pm.config.yaml` must print `ok`.
 
 ## 5. Finish
 

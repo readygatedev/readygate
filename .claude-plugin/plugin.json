@@ -1,6 +1,6 @@
 {
   "name": "readygate",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Gated PM workflow for Claude Code: fit checks grounded in your code, and developer- and QA-ready tickets that never guess a product decision.",
   "author": { "name": "readygatedev", "url": "https://github.com/readygatedev" },
   "homepage": "https://github.com/readygatedev/readygate",

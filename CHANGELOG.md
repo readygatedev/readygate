@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (unreleased)
+
+- No PyYAML needed: `scripts/pmconfig.py` reads `pm.config.yaml` with python3 alone (PyYAML is still used when installed).
+- `pmconfig.py --check` validates the config with plain-English errors (line numbers, missing keys); `/pm-init` and `/pm-new` use it.
+- The config shown by the context script no longer has trailing spaces where comments were stripped.
+
 ## 0.2.0 (2026-11-25)
 
 - **Greenfield mode** for PMs with no codebase yet:

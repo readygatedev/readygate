@@ -1,7 +1,7 @@
 ---
 name: pm-init
 argument-hint: "[answers you already know, e.g. \"tickets outside the repo, draft the glossary\"]"
-allowed-tools: Read, Grep, Glob, Bash(bash ${CLAUDE_PLUGIN_ROOT}/skills/pm-init/scripts/detect.sh:*)
+allowed-tools: Read, Grep, Glob, Bash(python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pmconfig.py:*), Bash(bash ${CLAUDE_PLUGIN_ROOT}/skills/pm-init/scripts/detect.sh:*)
 description: Set up ReadyGate in a workspace. Scans the folder for repos, stack and existing PM files, asks the PM only what it can't detect, then writes pm.config.yaml, the terminology and decisions files and the tickets folder. Also updates an existing setup. Run by the PM as /pm-init.
 disable-model-invocation: true
 ---
@@ -69,7 +69,7 @@ If the scan found a tracker connection (Jira, Linear) or a prototype repo, or th
 
 ## 5. Check
 
-- Parse the YAML (`python3 -c 'import yaml,sys; yaml.safe_load(open(sys.argv[1]))' pm.config.yaml`, or node). Fix and re-check on error.
+- Validate it: `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pmconfig.py --check pm.config.yaml` prints `ok` or the problems (works without PyYAML). Fix and re-check until it's `ok`.
 - Every path in the config exists (except the tickets folder's future subfolders).
 - `git -C <product repo> fetch --dry-run` works. If not, note "remote comparison unavailable" and continue.
 
