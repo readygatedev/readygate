@@ -10,6 +10,8 @@ Most AI ticket writers fill the gaps with plausible guesses. ReadyGate has **gat
 
 ## Install
 
+Needs [Claude Code](https://claude.com/claude-code), git and python3.
+
 ```
 /plugin install readygate --marketplace readygatedev/readygate
 ```
@@ -104,13 +106,17 @@ Everything project-specific lives in `pm.config.yaml`, written by `/pm-init`: pa
 
 ReadyGate runs on your Claude Code plan. On API pricing, a feature from idea to tickets is typically **$1–4** (a fit check is about $0.30–0.70; tickets $1–3, depending on size and how many rounds of questions).
 
-## ReadyGate Pro (coming)
+## ReadyGate Pro
 
-- Push tickets to **Jira, Linear or GitHub Issues** with a dry run first, Epic matching, screenshots attached, and no duplicates.
-- A **prototype loop**: a mockup, a mock-data UI and screenshots, with changes fed back into the tickets after your approval.
-- **Grading of shipped work**: after each pull, a summary of what the developers merged, graded A–D against the tickets.
+Everything above, plus the rest of the PM loop. $49 one-time, per person.
 
-[Join the waitlist →](https://github.com/readygatedev/readygate/discussions)
+- `/pm-push`: tickets to **Jira, Linear or GitHub Issues** after a dry run, with epics, dependency links and screenshots attached. Never pushes the same ticket twice; edited tickets become updates, with a diff.
+- `/pm-board`: what needs your attention first, and tickets that are out of sync with the tracker.
+- `/pm-prototype`: a mockup for your approval, then a mock-data UI and checked screenshots. Anything the screens decide becomes a proposed ticket change.
+- `/pm-review`: after developers merge, a summary of what changed, graded A–D against each ticket's rules, with `file:line` evidence.
+- **Hooks that enforce the gates**: the product repo stays read-only, and no ticket or tracker write happens without your own "generate" or "push".
+
+[Get Pro at readygate.dev →](https://readygate.dev)
 
 ## Development
 
